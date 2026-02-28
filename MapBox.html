@@ -26,13 +26,9 @@
 <body>
     <div id="map"></div>
 
-    <!-- Cargar librería de Mapbox -->
-
-
-    <!-- Tu script con Firebase y Mapbox -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAh7cgObhkQmdg3U5A_g7LJHHISZHYzVVU",
@@ -60,16 +56,21 @@
 
         const marker = new mapboxgl.Marker({ color: "purple" }).addTo(map);
 
-        // Escuchar cambios en Firebase
         const ubicacionRef = ref(db, "ubicacion");
-        onValue(ubicacionRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                marker.setLngLat([data.lng, data.lat]);
-                map.setCenter([data.lng, data.lat]);
+
+        // Actualizar cada 5 segundos
+        setInterval(async () => {
+            try {
+                const snapshot = await get(ubicacionRef);
+                const data = snapshot.val();
+                if (data) {
+                    marker.setLngLat([data.lng, data.lat]);
+                    map.setCenter([data.lng, data.lat]);
+                }
+            } catch (e) {
+                console.error("Error leyendo Firebase:", e);
             }
-        });
+        }, 5000);
     </script>
 </body>
-
 </html>
