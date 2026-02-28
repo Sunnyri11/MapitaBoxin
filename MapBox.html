@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mapita</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.css" rel="stylesheet" />
-        <script src="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.19.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.19.0/mapbox-gl.js"></script>
     <style>
         body {
             margin: 0;
@@ -25,6 +25,11 @@
 
 <body>
     <div id="map"></div>
+
+    <!-- Cargar librería de Mapbox -->
+
+
+    <!-- Tu script con Firebase y Mapbox -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
@@ -43,7 +48,9 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        mapboxgl.accessToken = "pk.eyJ1IjoibGlhbmFyaSIsImEiOiJjbW01MmRkMHcwMmQwMnBuMG10cHVkM21qIn0.6Bi_v-0rgL9eKyR71PFzhA"; // usa tu token público
+        // Token público de Mapbox
+        mapboxgl.accessToken = "pk.eyJ1IjoibGlhbmFyaSIsImEiOiJjbW01bjlsd2wwMnUyMnFxNHV3YjcyZmR1In0.2Oij-VtaQqoBIA-GvuydGg";
+
         const map = new mapboxgl.Map({
             container: "map",
             style: "mapbox://styles/mapbox/streets-v11",
@@ -63,9 +70,6 @@
             }
         });
     </script>
-
-    </script>
 </body>
-
 
 </html>
